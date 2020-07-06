@@ -1,0 +1,24 @@
+; this program cumulates an arbitrary number of non-negative integers
+; must end with a negative integer
+
+0011 000 000000000       ; start at 0x3000
+1110 001 000001001       ; load the content in 0x300A to R1
+0101 011 011 1 00000     ; initialize R3 to 0
+0110 100 001 000000      ; load the content which is stored in the address stored to R1
+0000 1 0 0 000000100     ; if the "negative bit" of CC is 1, then jump to 0x3008
+0001 011 011 0 00 100    ; R3 += R4
+0001 001 001 1 00001     ; R1 += 1, note that what is stored in R1 is an address
+0110 100 001 000000      ; load the content which is stored in the address stored to R1
+0000 1 1 1 111111011     ; jump to 0x3003
+1111 0000 00100101       ; halt
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;   the code below are data   ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+0000000000000000
+0000000000000001
+0000000000000010
+0000000000000011
+0000000000000100
+1111111111111111          ; sentinel
